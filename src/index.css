@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-mono: 'Courier Prime', monospace;
+    --font-sans: 'Inter', sans-serif;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Authentic Windows 98 3D Bevel Rules */
+.bevel-raised {
+  border-top: 1.5px solid #ffffff;
+  border-left: 1.5px solid #ffffff;
+  border-right: 1.5px solid #1a1c1c;
+  border-bottom: 1.5px solid #1a1c1c;
+}
+
+.bevel-sunken {
+  border-top: 1.5px solid #6e7979;
+  border-left: 1.5px solid #6e7979;
+  border-right: 1.5px solid #ffffff;
+  border-bottom: 1.5px solid #ffffff;
+}
+
+.bevel-raised-sm {
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #3e4949;
+  border-bottom: 1px solid #3e4949;
+}
+
+.bevel-sunken-sm {
+  border-top: 1px solid #3e4949;
+  border-left: 1px solid #3e4949;
+  border-right: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+}
+
+/* Window Titlebar Gradients */
+.title-bar-active {
+  background: linear-gradient(to right, #000080, #0040a0, #1084d0) !important;
+  color: #ffffff !important;
+}
+
+.title-bar-inactive {
+  background: linear-gradient(to right, #808080, #9a9a9a, #b0b0b0) !important;
+  color: #d4d4d4 !important;
+}
+
+/* Classic Segmented Progress Bar */
+.retro-progress-track {
+  background-color: #ffffff;
+  border-top: 1.5px solid #6e7979;
+  border-left: 1.5px solid #6e7979;
+  border-right: 1.5px solid #ffffff;
+  border-bottom: 1.5px solid #ffffff;
+  padding: 2px;
+  display: flex;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.retro-bar-segment {
+  background-color: #000080;
+  height: 12px;
+  width: 8px;
+  flex-shrink: 0;
+}
+
+/* Custom Win98 Scrollbars */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background-color: #dfdfdf;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0;
+  border-top: 1.5px solid #ffffff;
+  border-left: 1.5px solid #ffffff;
+  border-right: 1.5px solid #1a1c1c;
+  border-bottom: 1.5px solid #1a1c1c;
+}
+
+::-webkit-scrollbar-button {
+  background-color: #c0c0c0;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #1a1c1c;
+  border-bottom: 1px solid #1a1c1c;
+}
+
+/* Marquee Animation */
+@keyframes marquee-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee-scroll 16s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Scanline Overlay */
+.crt-scanlines {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
+  background-size: 100% 4px;
+}
+
+/* Font helpers */
+.font-courier {
+  font-family: 'Courier Prime', monospace;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}

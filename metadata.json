@@ -1,0 +1,6 @@
+{
+  "name": "RetroOS v98 - Interactive Desktop Portfolio",
+  "description": "An authentic Windows 98 retro desktop operating system portfolio with draggable windows, retro audio player, interactive apps, and tactile sound effects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
