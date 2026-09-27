@@ -29,6 +29,7 @@ export const PROJECTS: Project[] = [
     tag: '  FIGMA',
     tagColor: '#006565',
     description: 'Interactive UI/UX prototype showcasing user flows, page navigation, and responsive layouts for Clash of Bang.',
+    imageUrl: '/audio/CoBDesign.png',
     versionStatus: 'Design v1.0',
     statusBadge: '● Design v1.0',
     liveUrl: 'https://www.figma.com/proto/ddK4EK7C3IQUs4fZMwleHQ/Untitled?node-id=1-3&starting-point-node-id=1%3A3&t=NZZbkzdaAS0N9i2A-1',
@@ -54,6 +55,7 @@ User Flow: Homepage -> Troops -> Gallery -> About -> Register Form
     tag: 'REACT / HTML / CSS',
     tagColor: '#4b53bc',
     description: 'An interactive multi-page website (Homepage, Troops, Gallery, About, Register) focusing on clean UI/UX and layout design.',
+    imageUrl: '/audio/CoBWeb.png',
     versionStatus: 'v1.0-beta',
     statusBadge: '● v1.0-beta',
     // liveUrl: 'https://github.com',
@@ -86,6 +88,7 @@ User Flow: Homepage -> Troops -> Gallery -> About -> Register Form
     tag: 'FIGMA',
     tagColor: '#005e97',
     description: 'A collaborative team project designing an end-to-end user experience for a digital ticketing platform. Focused on crafting intuitive user flows and interactive prototypes spanning from account registration to successful ticket booking.',
+    imageUrl: '/audio/SeatUp.png',
     versionStatus: 'v1.0-prototype',
     statusBadge: '● v1.0-prototype',
     liveUrl: 'https://www.figma.com/proto/ozE6WIQhkbDOqlyw346wXb/HCI-LEC?node-id=30-450&starting-point-node-id=25%3A11&t=IhitxIfObFQPCRCx-1',
@@ -230,6 +233,7 @@ export const AUDIO_TRACKS: any[] = [  {
     duration: '05:23',
     bitrate: '128 KBPS',
     frequencies: [55, 82, 45, 90, 68, 72, 40, 85, 30, 65],
+    audioUrl: '/audio/track1.mp3',
   },
   {
     id: 2,
@@ -238,6 +242,7 @@ export const AUDIO_TRACKS: any[] = [  {
     duration: '03:20',
     bitrate: '128 KBPS',
     frequencies: [55, 82, 45, 90, 68, 72, 40, 85, 30, 65],
+    audioUrl: '/audio/track2.mp3',
   },
   {
     id: 3,
@@ -246,6 +251,7 @@ export const AUDIO_TRACKS: any[] = [  {
     duration: '03:52',
     bitrate: '128 KBPS',
     frequencies: [25, 45, 78, 62, 88, 50, 65, 35, 75, 42],
+    audioUrl: '/audio/track3.mp3',
   },
   {
     id: 4,
@@ -254,5 +260,6 @@ export const AUDIO_TRACKS: any[] = [  {
     duration: '03.41',
     bitrate: '160 KBPS',
     frequencies: [70, 60, 85, 40, 50, 80, 95, 30, 45, 88],
+    audioUrl: '/audio/track4.mp3',
   },
 ];
