@@ -255,6 +255,29 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 <span className="material-symbols-outlined text-[13px]">code</span> GitHub Repo
               </a>
             )}
+            <div className="flex items-center justify-end gap-2 mt-4">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sound.click?.()}
+                className="px-4 py-1 bg-[#000080] text-white bevel-raised hover:bg-[#1084d0] active:bevel-sunken text-[#ffffff] cursor-pointer flex items-center gap-1.5 no-underline font-bold"
+              >
+                <span>Open Figma / Live Demo</span>
+                <span className="text-[12px]">↗</span>
+              </a>
+            )}
+            <button
+              onClick={() => {
+                sound.close();
+                onClose();
+              }}
+              className="px-4 py-1 bg-[#eeeeee] bevel-raised hover:bg-[#000080] hover:text-white active:bevel-sunken text-[#1a1c1c] cursor-pointer"
+            >
+              Close Dialog
+            </button>
+          </div>
           </div>
           <button
             onClick={() => {
