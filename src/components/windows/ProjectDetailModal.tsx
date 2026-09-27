@@ -264,6 +264,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 onClick={() => sound.click?.()}
                 className="px-4 py-1 bg-[#000080] text-white bevel-raised hover:bg-[#1084d0] active:bevel-sunken text-[#ffffff] cursor-pointer flex items-center gap-1.5 no-underline font-bold"
               >
+                <span>Live Demo</span>
                 <span className="text-[12px]">↗</span>
               </a>
             )}
