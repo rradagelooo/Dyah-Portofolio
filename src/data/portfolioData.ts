@@ -4,6 +4,7 @@ import { Project, SkillTab, AudioTrack } from '../types';
 export const USER_PROFILE = {
   name: 'DYAH AYU PUSPANINGRUM',
   title: 'FRONTEND DEVELOPER // UI/UX DESIGNER',
+  avatarUrl: '/audio/avatar.svg',
   status: 'OPERATIONAL / V98',
   availability: 'AVAILABLE FOR WORK',
   location: 'BEKASI, INDONESIA',
