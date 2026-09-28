@@ -242,43 +242,44 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between px-3 py-1.5 bg-[#eeeeee] border-t border-[#bdc9c8] font-courier text-[11px] font-bold">
-          <div className="flex items-center gap-1.5">
+        <div className="flex items-center justify-between px-3 py-2 bg-[#eeeeee] border-t border-[#808080]">
+          <div className="flex items-center gap-2">
             {project.repoUrl && (
               <a
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => sound.click()}
-                className="px-2.5 py-1 bg-[#eeeeee] bevel-raised hover:bg-[#e8e8e8] active:bevel-sunken text-[#1a1c1c] flex items-center gap-1"
+                onClick={() => sound.click?.()}
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#eeeeee] bevel-raised hover:bg-[#d4d0c8] active:bevel-sunken text-[#1a1c1c] text-xs font-bold no-underline cursor-pointer leading-none"
               >
-                <span className="material-symbols-outlined text-[13px]">code</span> GitHub Repo
+                <span className="material-symbols-outlined text-[13px]">code</span>
+                <span>GitHub Repo</span>
               </a>
             )}
-            <div className="flex items-center justify-end gap-2 mt-4">
+
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => sound.click?.()}
-                className="px-4 py-1 bg-[#000080] text-white bevel-raised hover:bg-[#1084d0] active:bevel-sunken text-[#ffffff] cursor-pointer flex items-center gap-1.5 no-underline font-bold"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#000080] text-white bevel-raised hover:bg-[#1084d0] active:bevel-sunken text-xs font-bold no-underline cursor-pointer leading-none"
               >
                 <span>Live Demo</span>
-                <span className="text-[12px]">↗</span>
+                <span className="text-[11px]">↗</span>
               </a>
             )}
-            <button
-              onClick={() => {
-                sound.close();
-                onClose();
-              }}
-              className="px-4 py-1 bg-[#eeeeee] bevel-raised hover:bg-[#000080] hover:text-white active:bevel-sunken text-[#1a1c1c] cursor-pointer"
-            >
-              Close Dialog
-            </button>
           </div>
-          </div>
+
+          <button
+            onClick={() => {
+              sound.close();
+              onClose();
+            }}
+            className="inline-flex items-center justify-center px-4 py-1.5 bg-[#eeeeee] bevel-raised hover:bg-[#000080] hover:text-white active:bevel-sunken text-[#1a1c1c] text-xs font-bold cursor-pointer leading-none"
+          >
+            Close Dialog
+          </button>
         </div>
       </div>
     </div>
