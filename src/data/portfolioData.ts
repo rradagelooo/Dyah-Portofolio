@@ -106,14 +106,47 @@ User Flow: Homepage -> Troops -> Gallery -> About -> Register Form
       Font Family: Inter & Courier New
       Grid System: 8pt baseline grid & Auto-Layout
       User Flow: Register -> Login -> Catalog -> Ticket Selection -> Checkout -> Success Booking
-    }
-  }
-}
-voxelMesh.instanceMatrix.needsUpdate = true;`,
+   };
+}`,
   },
-];
+  {
+    id: 'retro-portofolio',
+    title: 'RETRO OS v98 PORTFOLIO',
+    category: 'Frontend',
+    tag: ' REACT / TYPESCRIPT / VITE',
+    tagColor: '#000080',
+    description: 'An interactive Windows 98 desktop simulation portfolio featuring draggable windows, built-in WinAmp audio player, sound synthesis, and responsive retro UI.',
+    imageUrl: '/audio/porto.png',
+    versionStatus: 'PRODUCTION',
+    statusBadge: '● LIVE SITE',
+    liveUrl: 'https://dyah-portofolio-one.vercel.app/',
+    repoUrl: 'https://github.com/rradagelooo/Dyah-Portofolio.git',
+    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Three.js', 'Web Audio API'],
+    features: [
+      'Authentic Windows 98 bevel UI design and retro color palette',
+      'Interactive draggable, minimizable, and maximizable window managers',
+      'Integrated RetroAmp audio player with real-time waveform audio simulation',
+      'Dynamic sound effects synthesis using browser Web Audio API',
+      'Fully responsive layout for mobile and desktop screens',
+    ],
+    codeSnippet: `// Design Tokens & Specs
+      const playRetroBeep = (freq = 880, duration = 0.08) => {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+  
+      osc.type = 'square'; // Classic 8-bit square wave
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
 
-export const SKILLS_TABS: SkillTab[] = [
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+};`,
+  },
+];export const SKILLS_TABS: SkillTab[] = [
   {
     id: 1,
     name: 'Core Tech',
