@@ -262,4 +262,13 @@ export const AUDIO_TRACKS: any[] = [  {
     frequencies: [70, 60, 85, 40, 50, 80, 95, 30, 45, 88],
     audioUrl: '/audio/track4.mp3',
   },
+   {
+    id: 5,
+    title: 'I Want It That Way - Backstreet Boys',
+    artist: 'Backstreet Boys',
+    duration: '03.39',
+    bitrate: '160 KBPS',
+    frequencies: [70, 60, 85, 40, 50, 80, 95, 30, 45, 88],
+    audioUrl: '/audio/track5.mp3',
+  },
 ];
