@@ -67,7 +67,8 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 35,
-        position: { x: isMobile ? 8 : Math.max(340, screenW - 360), y: isMobile ? 8 : 8 },
+        // Di HP posisinya di pojok kanan atas, pas dan tidak menutupi desktop
+        position: { x: isMobile ? Math.max(8, screenW - 290) : Math.max(340, screenW - 360), y: 8 },
       },
       'win-profile': {
         id: 'win-profile',
@@ -154,7 +155,6 @@ export default function App() {
     } else if (win.isMinimized) {
       bringToFront(id);
     } else if (activeWindowId === id) {
-      // Minimize
       sound.close();
       setWindows((prev) => ({
         ...prev,
@@ -214,7 +214,6 @@ export default function App() {
     });
   };
 
-  // Close start menu when clicking on desktop
   const handleDesktopClick = () => {
     if (isStartMenuOpen) {
       sound.close();
@@ -222,7 +221,6 @@ export default function App() {
     }
   };
 
-  // Synchronize document body background with wallpaper
   useEffect(() => {
     document.body.style.backgroundColor = theme.wallpaper;
   }, [theme.wallpaper]);
@@ -233,12 +231,12 @@ export default function App() {
       style={{ backgroundColor: theme.wallpaper }}
       className="relative w-full h-screen h-[100dvh] overflow-hidden select-none font-sans"
     >
-      {/* Background Pattern */}
+      {/* Background Pattern - Garis Grid Retro Kontras & Tajam */}
       {theme.pattern === 'tiled-grid' && (
-        <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:16px_16px]" />
+        <div className="pointer-events-none absolute inset-0 opacity-30 bg-[linear-gradient(to_right,rgba(255,255,255,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.45)_1px,transparent_1px)] bg-[size:20px_20px]" />
       )}
       {theme.pattern === 'dots' && (
-        <div className="pointer-events-none absolute inset-0 opacity-15 bg-[radial-gradient(#ffffff_1px,transparent_1px)] bg-[size:16px_16px]" />
+        <div className="pointer-events-none absolute inset-0 opacity-30 bg-[radial-gradient(rgba(255,255,255,0.5)_1.5px,transparent_1.5px)] bg-[size:20px_20px]" />
       )}
 
       {/* CRT Scanline Overlay Effect */}
@@ -295,8 +293,8 @@ export default function App() {
           zIndex={windows['win-audio'].zIndex}
           initialX={windows['win-audio'].position.x}
           initialY={windows['win-audio'].position.y}
-          width="auto"
-          maxWidth="max-w-xs sm:max-w-xs"
+          width="270px"
+          maxWidth="max-w-[270px] sm:max-w-xs"
           onFocus={() => bringToFront('win-audio')}
           onClose={() => closeWindow('win-audio')}
           onMinimize={() => minimizeWindow('win-audio')}
