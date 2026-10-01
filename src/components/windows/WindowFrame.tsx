@@ -24,6 +24,7 @@ interface WindowFrameProps {
 }
 
 export const WindowFrame: React.FC<WindowFrameProps> = ({
+  id,
   title,
   icon = 'folder_zip',
   isOpen,
@@ -50,7 +51,6 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ mouseX: 0, mouseY: 0, posX: initialX, posY: initialY });
 
-  // Deteksi jika ukuran layar berubah (misal dari desktop ke mobile atau saat HP diputar)
   useEffect(() => {
     const handleResize = () => {
       setIsMobileScreen(window.innerWidth < 768);
@@ -65,11 +65,12 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
   if (!isOpen || isMinimized) return null;
 
-  // Di layar HP otomatis full screen agar pas & tidak terpotong ke samping
-  const effectiveMaximized = isMaximized || isMobileScreen;
+  // Di layar HP: maksimalkan jendela dokumen besar (seperti Projects/Profile),
+  // sedangkan jendela mini seperti RetroAmp player TETAP KECIL di pojok!
+  const isCompactWindow = id === 'win-audio' || maxWidth?.includes('max-w-xs');
+  const effectiveMaximized = isMaximized || (isMobileScreen && !isCompactWindow);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Ignore if clicking on control buttons
     if ((e.target as HTMLElement).closest('button')) return;
     onFocus();
     if (effectiveMaximized) return;
@@ -86,8 +87,8 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       if (!isDraggingRef.current) return;
       const dx = moveEvent.clientX - dragStartRef.current.mouseX;
       const dy = moveEvent.clientY - dragStartRef.current.mouseY;
-      const newX = Math.max(10, Math.min(window.innerWidth - 120, dragStartRef.current.posX + dx));
-      const newY = Math.max(45, Math.min(window.innerHeight - 80, dragStartRef.current.posY + dy));
+      const newX = Math.max(-200, Math.min(window.innerWidth - 100, dragStartRef.current.posX + dx));
+      const newY = Math.max(-600, Math.min(window.innerHeight - 70, dragStartRef.current.posY + dy));
       setPos({ x: newX, y: newY });
     };
 
