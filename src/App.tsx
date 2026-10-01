@@ -45,6 +45,7 @@ export default function App() {
   // Initial window state definitions - RetroAmp opens automatically on launch
   const [windows, setWindows] = useState<Record<WindowId, WindowState>>(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const isTablet = typeof window !== 'undefined' && window.innerWidth >= 768 && window.innerWidth < 1024;
     const screenW = typeof window !== 'undefined' ? window.innerWidth : 1200;
 
     return {
@@ -56,7 +57,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 20,
-        position: { x: isMobile ? 8 : 115, y: isMobile ? 8 : 8 }
+        position: { x: isMobile ? 4 : isTablet ? 30 : 115, y: isMobile ? 4 : 8 }
       },
       'win-audio': {
         id: 'win-audio',
@@ -66,7 +67,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 35,
-        position: { x: isMobile ? 8 : Math.max(480, screenW - 350), y: isMobile ? 8 : 50 },
+        position: { x: isMobile ? 8 : Math.max(340, screenW - 360), y: isMobile ? 8 : 8 },
       },
       'win-profile': {
         id: 'win-profile',
@@ -76,7 +77,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 35,
-        position: { x: isMobile ? 8 : Math.max(20, Math.floor((screenW - 680) / 2)), y: 8 },
+        position: { x: isMobile ? 4 : Math.max(20, Math.floor((screenW - 680) / 2)), y: isMobile ? 4 : 8 },
       },
       'win-skills': {
         id: 'win-skills',
@@ -86,7 +87,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 25,
-       position: { x: isMobile ? 8 : 220, y: isMobile ? 8 : 8 },
+        position: { x: isMobile ? 4 : isTablet ? 40 : 220, y: isMobile ? 4 : 8 },
       },
       'win-contact': {
         id: 'win-contact',
@@ -96,7 +97,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 26,
-        position: { x: isMobile ? 8 : 240, y: isMobile ? 12 : 12 }, 
+        position: { x: isMobile ? 4 : isTablet ? 50 : 240, y: isMobile ? 8 : 12 }, 
       },
       'win-theme': {
         id: 'win-theme',
@@ -106,7 +107,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 22,
-        position: { x: isMobile ? 12 : Math.max(380, screenW - 310), y: isMobile ? 380 : 380 },
+        position: { x: isMobile ? 4 : Math.max(320, screenW - 310), y: isMobile ? 8 : 16 },
       },
       'win-game': {
         id: 'win-game',
@@ -116,7 +117,7 @@ export default function App() {
         isMinimized: false,
         isMaximized: false,
         zIndex: 36,
-        position: { x: isMobile ? 12 : Math.max(30, Math.floor((screenW - 360) / 2)), y: 100 },
+        position: { x: isMobile ? 4 : Math.max(30, Math.floor((screenW - 360) / 2)), y: isMobile ? 20 : 100 },
       },
     };
   });
@@ -249,7 +250,7 @@ export default function App() {
       <TopBar onOpenWindow={openWindow} activePath="desktop" />
 
       {/* DESKTOP CANVAS WORKSPACE */}
-     <main className="relative w-full h-[calc(100vh-80px)] mt-10">
+      <main className="relative w-full h-[calc(100vh-80px)] mt-10">
         {/* DESKTOP SHORTCUT ICONS */}
         <DesktopIcons
           onOpenWindow={openWindow}
@@ -338,8 +339,8 @@ export default function App() {
           zIndex={windows['win-skills'].zIndex}
           initialX={windows['win-skills'].position.x}
           initialY={windows['win-skills'].position.y}
-          width="calc(100vw - 2rem)"
-          maxWidth="max-w-md"
+          width="min(500px, calc(100vw - 16px))"
+          maxWidth="max-w-lg"
           onFocus={() => bringToFront('win-skills')}
           onClose={() => closeWindow('win-skills')}
           onMinimize={() => minimizeWindow('win-skills')}
@@ -363,8 +364,8 @@ export default function App() {
           zIndex={windows['win-contact'].zIndex}
           initialX={windows['win-contact'].position.x}
           initialY={windows['win-contact'].position.y}
-          width="calc(100vw - 2rem)"
-          maxWidth="max-w-lg"
+          width="min(560px, calc(100vw - 16px))"
+          maxWidth="max-w-xl"
           onFocus={() => bringToFront('win-contact')}
           onClose={() => closeWindow('win-contact')}
           onMinimize={() => minimizeWindow('win-contact')}
