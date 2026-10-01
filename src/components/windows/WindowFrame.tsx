@@ -44,8 +44,20 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   onToggleMaximize,
 }) => {
   const [pos, setPos] = useState({ x: initialX, y: initialY });
+  const [isMobileScreen, setIsMobileScreen] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  );
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ mouseX: 0, mouseY: 0, posX: initialX, posY: initialY });
+
+  // Deteksi jika ukuran layar berubah (misal dari desktop ke mobile atau saat HP diputar)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     setPos({ x: initialX, y: initialY });
@@ -53,11 +65,14 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
   if (!isOpen || isMinimized) return null;
 
+  // Di layar HP otomatis full screen agar pas & tidak terpotong ke samping
+  const effectiveMaximized = isMaximized || isMobileScreen;
+
   const handleMouseDown = (e: React.MouseEvent) => {
     // Ignore if clicking on control buttons
     if ((e.target as HTMLElement).closest('button')) return;
     onFocus();
-    if (isMaximized) return;
+    if (effectiveMaximized) return;
 
     isDraggingRef.current = true;
     dragStartRef.current = {
@@ -85,24 +100,27 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
   };
-  const dynamicMaxHeight = isMaximized
+
+  const dynamicMaxHeight = effectiveMaximized
     ? '100%'
     : pos.y <= 0
     ? '100%'
     : `calc(100% - ${pos.y}px)`;
+
   return (
     <div
       onClick={onFocus}
       style={{
         zIndex,
-        left: isMaximized ? '0px' : `${pos.x}px`,
-        top: isMaximized ? '0px' : `${pos.y}px`,
-        width: isMaximized ? '100%' : (width || 'auto'),
-        height: isMaximized ? '100%' : 'auto',
+        left: effectiveMaximized ? '0px' : `${pos.x}px`,
+        top: effectiveMaximized ? '0px' : `${pos.y}px`,
+        width: effectiveMaximized ? '100%' : (width || 'auto'),
+        height: effectiveMaximized ? '100%' : 'auto',
+        maxWidth: effectiveMaximized ? '100%' : (width ? (typeof width === 'string' ? width : `${width}px`) : undefined),
         maxHeight: dynamicMaxHeight,
       }}
       className={`absolute bg-[#eeeeee] bevel-raised p-[3px] shadow-[6px_6px_0px_0px_rgba(0,0,0,0.45)] select-none flex flex-col min-h-0 ${
-        isMaximized ? 'w-full h-full' : maxWidth
+        effectiveMaximized ? 'w-full h-full' : maxWidth
       }`}
     >
       {/* Title Bar */}
@@ -147,10 +165,10 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
               sound.click();
               onToggleMaximize();
             }}
-            title={isMaximized ? 'Restore' : 'Maximize'}
+            title={effectiveMaximized ? 'Restore' : 'Maximize'}
             className="w-4 h-4 bg-[#eeeeee] bevel-raised text-[#1a1c1c] flex items-center justify-center font-bold text-[9px] active:bevel-sunken hover:bg-[#e8e8e8]"
           >
-            {isMaximized ? '❐' : '□'}
+            {effectiveMaximized ? '❐' : '□'}
           </button>
 
           {/* Close */}
@@ -171,8 +189,9 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       {/* Menu Bar if present */}
       {menuBar}
 
-     {/* Main Content Area */}
-    <div className="flex-1 min-h-0 overflow-auto flex flex-col">{children}</div>  
+      {/* Main Content Area */}
+      <div className="flex-1 min-h-0 overflow-auto flex flex-col">{children}</div>
+
       {/* Status Bar if present */}
       {statusBar}
     </div>
