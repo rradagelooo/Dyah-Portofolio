@@ -3,7 +3,7 @@ import { Project, SkillTab, AudioTrack } from '../types';
 
 export const USER_PROFILE = {
   name: 'DYAH AYU PUSPANINGRUM',
-  title: 'FRONTEND DEVELOPER // UI/UX DESIGNER',
+  title: 'SOFTWARE ENGINEER // DESIGN, CODE & QUALITY',
   avatarUrl: '/audio/avatar.png',
   status: 'OPERATIONAL / V98',
   availability: 'AVAILABLE FOR WORK',
@@ -17,9 +17,8 @@ export const USER_PROFILE = {
   linkedin: 'https://www.linkedin.com/in/dyah-ayu-puspaningrum-9131bb29b/',
   resumeUrl: 'https://canva.link/al2i4vu42lwamg2',
   remote: 'On - Site, Remote (Worldwide)',
-  bio: 'Hello World! I am Dyah Ayu Puspaningrum, a Frontend Developer and UI/UX Designer dedicated to crafting engaging, user-centered digital experiences. I bridge the gap between creative design systems and clean, scalable code, transforming conceptual wireframes into high-performance, interactive web applications that feel intuitive and alive.',
-  subBio: 'Core focus: Micro-interactions, Design Systems, Component Architecture, clean frontend code, and delightful, user-centered digital experiences',
-};
+  bio: 'Hello World! I am Dyah Ayu, a curious and adaptable tech builder who enjoys turning ideas into reliable digital products. From designing intuitive interfaces and developing interactive web apps to automating quality checks and exploring intelligent systems, I love solving real-world problems with clean, thoughtful engineering.',
+  subBio: 'Core focus: End-to-End Product Building, Software Quality & Reliability, User-Centered Design, and Continuous Learning across modern tech stacks.',};
 
 export const PROJECTS: Project[] = [
   {
@@ -106,8 +105,42 @@ User Flow: Homepage -> Troops -> Gallery -> About -> Register Form
       Font Family: Inter & Courier New
       Grid System: 8pt baseline grid & Auto-Layout
       User Flow: Register -> Login -> Catalog -> Ticket Selection -> Checkout -> Success Booking
-   };
-}`,
+`
+  },
+{
+    id: 'qa-automation-suite', 
+    title: 'E2E AUTOMATION TESTING', 
+    category: 'QA & Automation', 
+    tag: 'JAVA / SELENIUM WEBDRIVER / JUnit 5/', 
+    tagColor: '#006565',
+    description: 'Automated End-to-End (E2E) UI testing suite built with Java, Selenium WebDriver, and JUnit 5 to validate authentication, product verification, and full checkout flows on SauceDemo, complete with formal QA test artifacts.',    imageUrl: '/audio/JUnit_Execution_Result.png', // sesuaikan nama file gambar di folder public/audio/ (tanpa kata /public)
+    versionStatus: 'PASSING',
+    statusBadge: '● QA AUTOMATION',
+    repoUrl: 'https://github.com/rradagelooo/saucedemo-selenium-junit-automation/tree/main',
+    techStack: ['Selenium WebDriver', 'Java', 'JUnit 5'],
+    features: [
+      'Automated End-to-End (E2E) UI test coverage for authentication, product detail verification, and full checkout flows',
+      'Custom ChromeOptions and explicit waits (WebDriverWait) configuration to prevent flakiness and password manager pop-up interruptions',
+      'Structured test suite and assertions built with Java, Selenium WebDriver, and JUnit 5',
+      'Complete QA documentation deliverables including a formal Test Plan, Test Case specifications, and JUnit execution evidence',
+  ],
+    },
+    {
+    id: 'hand-tracking',
+    title: 'HAND TRACKING GESTURE', 
+    category: 'Computer Vision',
+    tag: 'PYTHON / OPENCV / MEDIAPIPE',
+    tagColor: '#4b53bc',
+    description: 'Real-time hand gesture detection and tracking system via webcam built with Python, OpenCV, and MediaPipe.',    imageUrl: '/audio/hand-tracking.png', 
+    versionStatus: 'COMPLETED',
+    statusBadge: '● COMPUTER VISION',
+    repoUrl: 'https://github.com/rradagelooo/HandTracking',
+    techStack: ['Python', 'OpenCV', 'MediaPipe', 'Computer Vision'],
+    features: [
+      'Real-time hand landmark detection tracking 21 key hand joints',
+      'Finger gesture recognition for interactive and automated controls',
+      'Lightweight, responsive performance compatible with standard webcams',
+    ],
   },
   {
     id: 'retro-portofolio',
