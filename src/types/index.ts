@@ -32,7 +32,7 @@ export interface WindowState {
 export interface Project {
   id: string;
   title: string;
-  category: 'Frontend' | 'UI/UX Design';
+  category: string;
   tag: string;
   tagColor: string;
   description: string;
