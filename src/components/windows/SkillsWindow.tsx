@@ -10,7 +10,12 @@ interface SkillIconData {
   id: string;
   name: string; // e.g. "JavaScript", "TypeScript", "React", "HTML5", "CSS3", etc.
   shortName: string; // e.g. "JS", "TS", "React", "Node", etc.
-  category: 'Languages & Core' | 'Frameworks & Libs' | 'Styling & Design' | 'Tools & Backend';
+  category:
+    | 'Languages & Core'
+    | 'Frameworks & Libs'
+    | 'QA & Automation'
+    | 'Styling & Design'
+    | 'Tools & Backend';
   badgeColor: string;
   textColor: string;
   iconSymbol?: string;
@@ -38,6 +43,14 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
       shortName: 'TS',
       category: 'Languages & Core',
       badgeColor: '#3178C6',
+      textColor: '#FFFFFF',
+    },
+    {
+      id: 'java',
+      name: 'Java',
+      shortName: 'Java',
+      category: 'Languages & Core',
+      badgeColor: '#ED8B00',
       textColor: '#FFFFFF',
     },
     {
@@ -81,15 +94,6 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
       badgeColor: '#1572B6',
       textColor: '#FFFFFF',
     },
-    // {
-    //   id: 'glsl',
-    //   name: 'GLSL / Shaders',
-    //   shortName: 'GLSL',
-    //   category: 'Languages & Core',
-    //   badgeColor: '#5586A4',
-    //   textColor: '#FFFFFF',
-    //   iconSymbol: 'scatter_plot',
-    // },
 
     // Frameworks & Libs
     {
@@ -100,31 +104,53 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
       badgeColor: '#61DAFB',
       textColor: '#000000',
     },
-    // {
-    //   id: 'nextjs',
-    //   name: 'Next.js',
-    //   shortName: 'Next',
-    //   category: 'Frameworks & Libs',
-    //   badgeColor: '#000000',
-    //   textColor: '#FFFFFF',
-    // },
-    // {
-    //   id: 'threejs',
-    //   name: 'Three.js',
-    //   shortName: 'Three',
-    //   category: 'Frameworks & Libs',
-    //   badgeColor: '#049EF4',
-    //   textColor: '#FFFFFF',
-    //   iconSymbol: 'view_in_ar',
-    // },
-    // {
-    //   id: 'vue',
-    //   name: 'Vue.js',
-    //   shortName: 'Vue',
-    //   category: 'Frameworks & Libs',
-    //   badgeColor: '#42B883',
-    //   textColor: '#FFFFFF',
-    // },
+    {
+      id: 'threejs',
+      name: 'Three.js',
+      shortName: 'Three',
+      category: 'Frameworks & Libs',
+      badgeColor: '#049EF4',
+      textColor: '#FFFFFF',
+      iconSymbol: 'view_in_ar',
+    },
+    {
+      id: 'opencv',
+      name: 'OpenCV',
+      shortName: 'OpenCV',
+      category: 'Frameworks & Libs',
+      badgeColor: '#5C3EE8',
+      textColor: '#FFFFFF',
+      iconSymbol: 'visibility',
+    },
+    {
+      id: 'mediapipe',
+      name: 'MediaPipe',
+      shortName: 'MediaPipe',
+      category: 'Frameworks & Libs',
+      badgeColor: '#0097A7',
+      textColor: '#FFFFFF',
+      iconSymbol: 'pan_tool',
+    },
+
+    // QA & Automation
+    {
+      id: 'selenium',
+      name: 'Selenium WebDriver',
+      shortName: 'Selenium',
+      category: 'QA & Automation',
+      badgeColor: '#43B02A',
+      textColor: '#FFFFFF',
+      iconSymbol: 'bug_report',
+    },
+    {
+      id: 'junit5',
+      name: 'JUnit 5',
+      shortName: 'JUnit 5',
+      category: 'QA & Automation',
+      badgeColor: '#25A162',
+      textColor: '#FFFFFF',
+      iconSymbol: 'verified',
+    },
 
     // Styling & Design
     {
@@ -143,14 +169,6 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
       badgeColor: '#F24E1E',
       textColor: '#FFFFFF',
     },
-    // {
-    //   id: 'sass',
-    //   name: 'Sass / SCSS',
-    //   shortName: 'Sass',
-    //   category: 'Styling & Design',
-    //   badgeColor: '#CC6699',
-    //   textColor: '#FFFFFF',
-    // },
 
     // Tools & Backend
     {
@@ -171,6 +189,15 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
       iconSymbol: 'merge_type',
     },
     {
+      id: 'gh-actions',
+      name: 'GitHub Actions',
+      shortName: 'CI/CD',
+      category: 'Tools & Backend',
+      badgeColor: '#2088FF',
+      textColor: '#FFFFFF',
+      iconSymbol: 'play_circle',
+    },
+    {
       id: 'vite',
       name: 'Vite',
       shortName: 'Vite',
@@ -179,18 +206,16 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
       textColor: '#FFFFFF',
       iconSymbol: 'bolt',
     },
-    // {
-    //   id: 'postgres',
-    //   name: 'PostgreSQL',
-    //   shortName: 'Postgres',
-    //   category: 'Tools & Backend',
-    //   badgeColor: '#4169E1',
-    //   textColor: '#FFFFFF',
-    //   iconSymbol: 'database',
-    // },
   ];
 
-  const categories = ['All', 'Languages & Core', 'Frameworks & Libs', 'Styling & Design', 'Tools & Backend'];
+  const categories = [
+    'All',
+    'Languages & Core',
+    'Frameworks & Libs',
+    'QA & Automation',
+    'Styling & Design',
+    'Tools & Backend',
+  ];
 
   const filteredSkills = skillsList.filter((s) => {
     if (activeCategory === 'All') return true;
@@ -206,7 +231,7 @@ export const SkillsWindow: React.FC<SkillsWindowProps> = ({ onClose, onShowAlert
   };
 
   return (
-    <div className="flex flex-col flex-1 bg-[#eeeeee] w-80 sm:w-[480px]">
+    <div className="flex flex-col flex-1 bg-[#eeeeee] w-full sm:w-[480px]">
       {/* Menu Bar */}
       <div className="flex items-center gap-4 px-2 py-0.5 font-courier text-[11px] text-[#1a1c1c] bg-[#eeeeee] border-b border-[#bdc9c8]">
         <button
