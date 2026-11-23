@@ -77,7 +77,7 @@ export const DesktopIcons: React.FC<DesktopIconsProps> = ({
   return (
     <div
       onClick={() => setSelectedId(null)}
-      className="absolute top-12 left-3 flex flex-col gap-4 z-10 w-24 select-none"
+      className="absolute top-2 left-2 sm:left-3 flex flex-col flex-wrap max-h-[calc(100dvh-100px)] gap-2.5 sm:gap-4 z-10 w-20 sm:w-24 select-none"
     >
       {icons.map((item) => {
         const isSelected = selectedId === item.id;
