@@ -12,6 +12,7 @@ interface WindowFrameProps {
   zIndex: number;
   initialX: number;
   initialY: number;
+  anchorRight?: number;
   width?: string | number;
   maxWidth?: string;
   children: React.ReactNode;
@@ -34,6 +35,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   zIndex,
   initialX,
   initialY,
+  anchorRight,
   width,
   maxWidth = 'max-w-4xl',
   children,
@@ -44,7 +46,9 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   onMinimize,
   onToggleMaximize,
 }) => {
+  const windowRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: initialX, y: initialY });
+  const [hasDragged, setHasDragged] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
   );
@@ -54,6 +58,10 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
   useEffect(() => {
     const handleResize = () => {
       setIsMobileScreen(window.innerWidth < 768);
+      setPos((prev) => ({
+        x: Math.max(0, Math.min(window.innerWidth - 120, prev.x)),
+        y: Math.max(0, Math.min(window.innerHeight - 120, prev.y)),
+      }));
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -61,35 +69,48 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
   useEffect(() => {
     setPos({ x: initialX, y: initialY });
+    setHasDragged(false);
   }, [initialX, initialY]);
 
   if (!isOpen || isMinimized) return null;
 
-  // Di layar HP: maksimalkan jendela dokumen besar (seperti Projects/Profile),
-  // sedangkan jendela mini seperti RetroAmp player TETAP KECIL di pojok!
   const isCompactWindow = id === 'win-audio' || maxWidth?.includes('max-w-xs');
   const effectiveMaximized = isMaximized || (isMobileScreen && !isCompactWindow);
+  const useRightAnchor = anchorRight !== undefined && !hasDragged && !effectiveMaximized;
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('button')) return;
+  const startDrag = (clientX: number, clientY: number) => {
     onFocus();
     if (effectiveMaximized) return;
 
+    const currentX = windowRef.current ? windowRef.current.offsetLeft : pos.x;
+    const currentY = windowRef.current ? windowRef.current.offsetTop : pos.y;
+
     isDraggingRef.current = true;
+    setHasDragged(true);
+    setPos({ x: currentX, y: currentY });
     dragStartRef.current = {
-      mouseX: e.clientX,
-      mouseY: e.clientY,
-      posX: pos.x,
-      posY: pos.y,
+      mouseX: clientX,
+      mouseY: clientY,
+      posX: currentX,
+      posY: currentY,
     };
+  };
+
+  const updateDrag = (clientX: number, clientY: number) => {
+    if (!isDraggingRef.current) return;
+    const dx = clientX - dragStartRef.current.mouseX;
+    const dy = clientY - dragStartRef.current.mouseY;
+    const newX = Math.max(-120, Math.min(window.innerWidth - 100, dragStartRef.current.posX + dx));
+    const newY = Math.max(0, Math.min(window.innerHeight - 110, dragStartRef.current.posY + dy));
+    setPos({ x: newX, y: newY });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('button')) return;
+    startDrag(e.clientX, e.clientY);
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
-      if (!isDraggingRef.current) return;
-      const dx = moveEvent.clientX - dragStartRef.current.mouseX;
-      const dy = moveEvent.clientY - dragStartRef.current.mouseY;
-      const newX = Math.max(-200, Math.min(window.innerWidth - 100, dragStartRef.current.posX + dx));
-      const newY = Math.max(-600, Math.min(window.innerHeight - 70, dragStartRef.current.posY + dy));
-      setPos({ x: newX, y: newY });
+      updateDrag(moveEvent.clientX, moveEvent.clientY);
     };
 
     const handleMouseUp = () => {
@@ -102,6 +123,27 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
     window.addEventListener('mouseup', handleMouseUp);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if ((e.target as HTMLElement).closest('button')) return;
+    const touch = e.touches[0];
+    if (!touch) return;
+    startDrag(touch.clientX, touch.clientY);
+
+    const handleTouchMove = (moveEvent: TouchEvent) => {
+      const moveTouch = moveEvent.touches[0];
+      if (moveTouch) updateDrag(moveTouch.clientX, moveTouch.clientY);
+    };
+
+    const handleTouchEnd = () => {
+      isDraggingRef.current = false;
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
+  };
+
   const dynamicMaxHeight = effectiveMaximized
     ? '100%'
     : pos.y <= 0
@@ -110,10 +152,12 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
   return (
     <div
+      ref={windowRef}
       onClick={onFocus}
       style={{
         zIndex,
-        left: effectiveMaximized ? '0px' : `${pos.x}px`,
+        left: effectiveMaximized ? '0px' : useRightAnchor ? 'auto' : `${pos.x}px`,
+        right: useRightAnchor ? `${anchorRight}px` : 'auto',
         top: effectiveMaximized ? '0px' : `${pos.y}px`,
         width: effectiveMaximized ? '100%' : (width || 'auto'),
         height: effectiveMaximized ? '100%' : 'auto',
@@ -127,6 +171,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       {/* Title Bar */}
       <div
         onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
         onDoubleClick={() => {
           sound.click();
           onToggleMaximize();
@@ -146,7 +191,6 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
 
         {/* Window control buttons */}
         <div className="flex items-center gap-1 shrink-0 ml-2">
-          {/* Minimize */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -159,20 +203,18 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
             _
           </button>
 
-          {/* Maximize / Restore */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               sound.click();
               onToggleMaximize();
             }}
-            title={effectiveMaximized ? 'Restore' : 'Maximize'}
+            title={isMaximized ? 'Restore' : 'Maximize'}
             className="w-4 h-4 bg-[#eeeeee] bevel-raised text-[#1a1c1c] flex items-center justify-center font-bold text-[9px] active:bevel-sunken hover:bg-[#e8e8e8]"
           >
-            {effectiveMaximized ? '❐' : '□'}
+            {isMaximized ? '❐' : '□'}
           </button>
 
-          {/* Close */}
           <button
             onClick={(e) => {
               e.stopPropagation();
