@@ -248,7 +248,7 @@ export default function App() {
       <TopBar onOpenWindow={openWindow} activePath="desktop" />
 
       {/* DESKTOP CANVAS WORKSPACE */}
-      <main className="relative w-full h-[calc(100vh-80px)] mt-10">
+      <main className="relative w-full h-[calc(100dvh-80px)] mt-10">
         {/* DESKTOP SHORTCUT ICONS */}
         <DesktopIcons
           onOpenWindow={openWindow}
@@ -293,7 +293,8 @@ export default function App() {
           zIndex={windows['win-audio'].zIndex}
           initialX={windows['win-audio'].position.x}
           initialY={windows['win-audio'].position.y}
-          width="270px"
+          anchorRight={8}
+          width="min(270px, calc(100vw - 96px))"
           maxWidth="max-w-[270px] sm:max-w-xs"
           onFocus={() => bringToFront('win-audio')}
           onClose={() => closeWindow('win-audio')}
@@ -338,7 +339,7 @@ export default function App() {
           initialX={windows['win-skills'].position.x}
           initialY={windows['win-skills'].position.y}
           width="min(500px, calc(100vw - 16px))"
-          maxWidth="max-w-lg"
+          maxWidth="max-w-[500px]"
           onFocus={() => bringToFront('win-skills')}
           onClose={() => closeWindow('win-skills')}
           onMinimize={() => minimizeWindow('win-skills')}
@@ -362,8 +363,8 @@ export default function App() {
           zIndex={windows['win-contact'].zIndex}
           initialX={windows['win-contact'].position.x}
           initialY={windows['win-contact'].position.y}
-          width="min(560px, calc(100vw - 16px))"
-          maxWidth="max-w-xl"
+          width="min(540px, calc(100vw - 16px))"
+          maxWidth="max-w-[540px]"
           onFocus={() => bringToFront('win-contact')}
           onClose={() => closeWindow('win-contact')}
           onMinimize={() => minimizeWindow('win-contact')}
@@ -387,7 +388,8 @@ export default function App() {
           zIndex={windows['win-theme'].zIndex}
           initialX={windows['win-theme'].position.x}
           initialY={windows['win-theme'].position.y}
-          width="auto"
+          anchorRight={8}
+          width="min(280px, calc(100vw - 16px))"
           maxWidth="max-w-xs"
           onFocus={() => bringToFront('win-theme')}
           onClose={() => closeWindow('win-theme')}
